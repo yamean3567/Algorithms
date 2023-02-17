@@ -17,7 +17,7 @@ public class ClosestPairOfPoints {
 
     private static final double EPS = 1e-9;
     
-    public static AdHoc instrumentation = new AdHoc(10);
+    public static AdHoc instrumentation = new AdHoc(12);
 
     public class PT {
         double x, y;
@@ -107,7 +107,6 @@ public class ClosestPairOfPoints {
 
                 double dist = nextPoint.dist(next);
                 if (dist < d) {
-
                     branchId = 5;
                     instrumentation.coverBranch(branchId);
 
@@ -127,20 +126,20 @@ public class ClosestPairOfPoints {
         next = yWorkingSet.lower(nextPoint);
         while (next != null && next.y > lowerBound) {
 
-            branchId = 5;
+            branchId = 7;
             instrumentation.coverBranch(branchId);
 
             double dist = nextPoint.dist(next);
             if (dist < d) {
 
-                branchId = 6;
+                branchId = 8;
                 instrumentation.coverBranch(branchId);
 
                 pt1 = nextPoint;
                 pt2 = next;
                 d = dist;
             } else {
-                branchId = 7;
+                branchId = 9;
                 instrumentation.coverBranch(branchId);
             }
             next = yWorkingSet.lower(next);
@@ -149,14 +148,14 @@ public class ClosestPairOfPoints {
         // Duplicate/stacked points
         if (yWorkingSet.contains(nextPoint)) {
 
-            branchId = 8;
+            branchId = 10;
             instrumentation.coverBranch(branchId);
             
             pt1 = pt2 = nextPoint;
             d = 0;
             break;
         } else {
-            branchId = 9;
+            branchId = 11;
             instrumentation.coverBranch(branchId);
         }
 
