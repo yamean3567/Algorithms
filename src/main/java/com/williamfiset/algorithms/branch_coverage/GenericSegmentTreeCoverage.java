@@ -514,6 +514,9 @@ public class GenericSegmentTreeCoverage {
 
   public static void main(String[] args) {
     t();
+    
+    String report = GenericSegmentTreeCoverage.instrumentation.getReport();
+    System.out.println(report);
     // sumQuerySumUpdateExample();
     // minQueryAssignUpdateExample();
     // gcdQueryMulUpdateExample();
