@@ -42,6 +42,38 @@ public class ChineseRemainderTheorem {
     return new long[] {a, m};
   }
 
+  public static long[][] findConflicts(List<Long> aNew, List<Long> mNew){
+
+    // Throw away repeated information and look for conflicts
+    for (int i = 0; i < aNew.size(); i++) {
+      for (int j = i + 1; j < aNew.size(); j++) {
+        if (mNew.get(i) % mNew.get(j) == 0 || mNew.get(j) % mNew.get(i) == 0) {
+          if (mNew.get(i) > mNew.get(j)) {
+            if ((aNew.get(i) % mNew.get(j)) == aNew.get(j)) {
+              aNew.remove(j);
+              mNew.remove(j);
+              j--;
+            } else return null;
+          } else {
+            if ((aNew.get(j) % mNew.get(i)) == aNew.get(i)) {
+              aNew.remove(i);
+              mNew.remove(i);
+              i--;
+              break;
+            } else return null;
+          }
+        }
+      }
+    }
+    // Put result into an array
+    long[][] res = new long[2][aNew.size()];
+    for (int i = 0; i < aNew.size(); i++) {
+      res[0][i] = aNew.get(i);
+      res[1][i] = mNew.get(i);
+    }
+    return res;
+  }
+
   // reduce() takes a set of equations and reduces them to an equivalent
   // set with pairwise co-prime moduli (or null if not solvable).
   public static long[][] reduce(long[] a, long[] m) {
@@ -70,37 +102,7 @@ public class ChineseRemainderTheorem {
         mNew.add(total);
       }
     }
-
-    // Throw away repeated information and look for conflicts
-    for (int i = 0; i < aNew.size(); i++) {
-      for (int j = i + 1; j < aNew.size(); j++) {
-        if (mNew.get(i) % mNew.get(j) == 0 || mNew.get(j) % mNew.get(i) == 0) {
-          if (mNew.get(i) > mNew.get(j)) {
-            if ((aNew.get(i) % mNew.get(j)) == aNew.get(j)) {
-              aNew.remove(j);
-              mNew.remove(j);
-              j--;
-              continue;
-            } else return null;
-          } else {
-            if ((aNew.get(j) % mNew.get(i)) == aNew.get(i)) {
-              aNew.remove(i);
-              mNew.remove(i);
-              i--;
-              break;
-            } else return null;
-          }
-        }
-      }
-    }
-
-    // Put result into an array
-    long[][] res = new long[2][aNew.size()];
-    for (int i = 0; i < aNew.size(); i++) {
-      res[0][i] = aNew.get(i);
-      res[1][i] = mNew.get(i);
-    }
-
+    long[][] res = findConflicts(aNew, mNew);
     return res;
   }
 
