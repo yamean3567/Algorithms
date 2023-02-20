@@ -10,16 +10,11 @@ package com.williamfiset.algorithms.dp;
 
 public class LongestCommonSubsequence {
 
-  // Returns a non unique Longest Common Subsequence
-  // between the strings str1 and str2 in O(nm)
-  public static String lcs(char[] A, char[] B) {
 
-    if (A == null || B == null) return null;
+  private static int[][] calculateCompoundingSubsequenceMatrix(char[] A, char[] B){
 
     final int n = A.length;
     final int m = B.length;
-
-    if (n == 0 || m == 0) return null;
 
     int[][] dp = new int[n + 1][m + 1];
 
@@ -35,6 +30,14 @@ public class LongestCommonSubsequence {
         else dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
       }
     }
+    
+    return dp;
+  }
+
+  private static String lcsFromCompoundingSubsequenceMatrix(char[] A, char[] B, int[][] dp){
+
+    final int n = A.length;
+    final int m = B.length;
 
     int lcsLen = dp[n][m];
     char[] lcs = new char[lcsLen];
@@ -58,8 +61,25 @@ public class LongestCommonSubsequence {
       i--;
       j--;
     }
-
+    
     return new String(lcs, 0, lcsLen);
+  }
+
+  // Returns a non unique Longest Common Subsequence
+  // between the strings str1 and str2 in O(nm)
+  public static String lcs(char[] A, char[] B) {
+
+    if (A == null || B == null) return null;
+
+    final int n = A.length;
+    final int m = B.length;
+
+    if (n == 0 || m == 0) return null;
+
+    int[][] dp = calculateCompoundingSubsequenceMatrix(A, B);
+
+    return lcsFromCompoundingSubsequenceMatrix(A, B, dp);
+
   }
 
   public static void main(String[] args) {
