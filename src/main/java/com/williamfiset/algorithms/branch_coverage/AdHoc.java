@@ -17,7 +17,7 @@ public class AdHoc {
      * Constructs an object of this class with given number of branches
      * 
      * @param numberOfBranches the number of branches that can be covered
-    */
+     */
     public AdHoc(int numberOfBranches) {
         this.coveredBranch = new boolean[numberOfBranches];
         this.numberOfBranches = numberOfBranches;
@@ -27,10 +27,15 @@ public class AdHoc {
      * Mark branch as covered
      * 
      * @param id the id of the branch that is marked as covered
+     * @throws IndexOutOfBoundsException if the given ID is invalid
      */
     public void coverBranch(int id) {
+        if (id < 0 || id >= numberOfBranches) {
+            throw new IndexOutOfBoundsException("Invalid branch ID: " + id);
+        }
+
         coveredBranch[id] = true;
-    } 
+    }
 
     /**
      * Get total branch coverage
@@ -40,7 +45,7 @@ public class AdHoc {
     public float branchCoverage() {
         int coveredBranches = 0;
 
-        for (boolean b : coveredBranch) {
+        for (boolean b: coveredBranch) {
             if (b) coveredBranches++;
         }
 
