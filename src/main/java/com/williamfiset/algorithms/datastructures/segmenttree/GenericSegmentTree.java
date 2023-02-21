@@ -168,15 +168,11 @@ public class GenericSegmentTree {
       long[] values,
       SegmentCombinationFn segmentCombinationFunction,
       RangeUpdateFn rangeUpdateFunction) {
-    if (values == null) {
-      throw new IllegalArgumentException("Segment tree values cannot be null.");
-    }
-    if (segmentCombinationFunction == null) {
-      throw new IllegalArgumentException("Please specify a valid segment combination function.");
-    }
-    if (rangeUpdateFunction == null) {
-      throw new IllegalArgumentException("Please specify a valid range update function.");
-    }
+
+    if (values == null || segmentCombinationFunction == null || rangeUpdateFunction == null) {
+      throw new IllegalArgumentException("Segment tree inputs cannot be null.");
+    } 
+
     n = values.length;
 
     // The size of the segment tree `t`
