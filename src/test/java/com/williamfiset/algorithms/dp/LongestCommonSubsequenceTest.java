@@ -26,7 +26,7 @@ public class LongestCommonSubsequenceTest {
     @Test    
     public void testNoSubsequence(){
         String res1 = LongestCommonSubsequence.lcs("12345".toCharArray(), "6789qwe".toCharArray());
-        String res1 = LongestCommonSubsequence.lcs("asdfgh".toCharArray(), "zxcvbn".toCharArray());
+        String res2 = LongestCommonSubsequence.lcs("asdfgh".toCharArray(), "zxcvbn".toCharArray());
         assertThat(res1 == "");
         assertThat(res2 == "");
     }
