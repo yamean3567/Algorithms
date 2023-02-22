@@ -1,6 +1,6 @@
 package com.williamfiset.algorithms.branch_coverage;
 
-public class LongestCommonSubsequence {
+public class LongestCommonSubsequenceCoverage {
 
   public static AdHoc instrumentation = new AdHoc(15);
 
